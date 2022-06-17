@@ -4,10 +4,7 @@ import com.example.learning.dto.TeacherDto;
 import com.example.learning.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/teachers")
@@ -19,5 +16,15 @@ public class TeacherController {
     @PostMapping
     public ResponseEntity<TeacherDto> addTeacher(@RequestBody TeacherDto teacherDto){
         return teacherService.addTeacher(teacherDto);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TeacherDto> editTeacher (@RequestBody TeacherDto teacherDto, @PathVariable("id") Long id){
+        return teacherService.editTeacher(teacherDto, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteTeacher (@PathVariable("id") Long id){
+        return teacherService.deleteTeacher(id);
     }
 }

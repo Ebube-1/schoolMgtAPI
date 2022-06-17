@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,27 +41,27 @@ public class TeacherServiceImpl implements TeacherService {
         return new ResponseEntity<>(mapper.map(newTeacher, TeacherDto.class), HttpStatus.CREATED);
     }
 
-//    public ResponseEntity<StudentDto> registerStudent(StudentDto studentDto) {
-//        Student studentByEmail = studentsRepository.findStudentByEmail(studentDto.getEmail());
-//        Student newStudent;
-//        if (studentByEmail == null) {
-//            Student student;
-//            student = mapper.map(studentDto, Student.class);
-//            student.setRegistrationDate(LocalDateTime.now());
-//            newStudent = studentsRepository.save(student);
-//        } else {
-//            throw new UserNotFoundException("Student with " + studentDto.getEmail() + " already exists!");
-//        }
-//        return new ResponseEntity<>(mapper.map(newStudent, StudentDto.class), HttpStatus.CREATED);
-//    }
-
     @Override
     public ResponseEntity<TeacherDto> editTeacher(TeacherDto teacherDto, Long id) {
-        return null;
+        Teacher teacher = teachersRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Teach with id " + id + " does not exist"));
+        teacher.setDob(teacherDto.getDob());
+        teacher.setEmail(teacher.getEmail());
+        teacher.setGender(teacherDto.getGender());
+        teacher.setFirstName(teacherDto.getFirstName());
+        teacher.setPassword(teacher.getPassword());
+        teacher.setQualification(teacher.getQualification());
+        teacher.setRegistrationDate(LocalDateTime.now());
+        teacher.setLastName(teacherDto.getLastName());
+        Teacher newTeacher = teachersRepository.save(teacher);
+
+        return new ResponseEntity<>(mapper.map(newTeacher, TeacherDto.class), HttpStatus.OK);
     }
+
 
     @Override
     public ResponseEntity<String> deleteTeacher(Long id) {
-        return null;
+        Teacher teacher = teachersRepository.findById(id).orElseThrow(() -> new UserNotFoundException("not found"));
+        teachersRepository.delete(teacher);
+        return new ResponseEntity<>("deleted successfully", HttpStatus.OK);
     }
 }

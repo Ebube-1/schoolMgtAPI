@@ -50,21 +50,6 @@ public class StudentServiceImpl implements StudentService {
         return new ResponseEntity<>(mapper.map(newStudent, StudentDto.class), HttpStatus.CREATED);
     }
 
-//    @Override
-//    public ResponseEntity<PostDto> createNewPost(Long userId, Long categoryId, PostDto postDto) {
-//        User user = userRepo.findById(userId).get();
-//        Category category = categoryRepo.findById(categoryId).get();
-//        Post post = mapper.map(postDto, Post.class);
-//        post.setDatePosted(LocalDateTime.now());
-//        post.setUser(user);
-//        post.setCategory(category);
-//        postRepo.save(post);
-//
-//        categoryRepo.save(category);
-//        return new ResponseEntity<>(mapper.map(post, PostDto.class), HttpStatus.CREATED);
-//    }
-
-
 
 //    public ResponseEntity<List<StudentDto>> getAllStudents() {
 //        List<Student> studentList = studentsRepository.findAll();
