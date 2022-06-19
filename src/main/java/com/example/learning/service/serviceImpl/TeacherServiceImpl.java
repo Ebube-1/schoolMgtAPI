@@ -15,7 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -63,5 +65,15 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher teacher = teachersRepository.findById(id).orElseThrow(() -> new UserNotFoundException("not found"));
         teachersRepository.delete(teacher);
         return new ResponseEntity<>("deleted successfully", HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<TeacherDto>> getAllTeachers() {
+        List<TeacherDto> newList = new ArrayList<>();
+        List<Teacher> teachers = teachersRepository.findAll();
+        for(Teacher teacher : teachers){
+            newList.add(mapper.map(teacher, TeacherDto.class));
+        }
+        return new ResponseEntity<>(newList, HttpStatus.OK);
     }
 }
