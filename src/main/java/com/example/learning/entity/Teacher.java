@@ -36,5 +36,10 @@ public class Teacher extends Base{
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     private Set<Student> students = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<com.springboot.blog.entity.Role> roles;
 
 }

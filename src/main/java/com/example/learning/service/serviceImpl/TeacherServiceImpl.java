@@ -30,7 +30,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public ResponseEntity<TeacherDto> addTeacher(TeacherDto teacherDto) {
-        Teacher teacherEmail = teachersRepository.findByEmail(teacherDto.getEmail());
+        Teacher teacherEmail = teachersRepository.findByEmail(teacherDto.getEmail()).get();
         Teacher newTeacher;
         if (teacherEmail == null) {
             Teacher teacher;
