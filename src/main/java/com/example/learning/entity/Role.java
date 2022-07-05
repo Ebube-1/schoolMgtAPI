@@ -1,5 +1,6 @@
 package com.springboot.blog.entity;
 
+import com.example.learning.entity.Teacher;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,4 +18,14 @@ public class Role {
 
     @Column(length = 60)
     private String name;
+    @OneToOne(mappedBy = "roles", optional = false)
+    private Teacher teacher;
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
 }
